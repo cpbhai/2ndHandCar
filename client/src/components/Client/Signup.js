@@ -1,0 +1,152 @@
+import "./Signup.css";
+import { Fragment, useState, useEffect } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import SendNotif from "../../utils/SendNotif";
+import Loading from "../Design/Loading/Loading";
+import { useNavigate } from "react-router-dom";
+import {
+  signup,
+  clearErrors,
+  clearMessages,
+} from "../../actions/clientActions";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, client, message, error } = useSelector(
+    (state) => state.client
+  );
+  useEffect(() => {
+    if (error) {
+      dispatch(SendNotif("error", error));
+      dispatch(clearErrors());
+    }
+    if (client) {
+      if (message) {
+        dispatch(SendNotif("success", message));
+        dispatch(clearMessages());
+      }
+      navigate("/");
+    }
+  }, [dispatch, error, message, client, navigate]);
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+  const [err1, setErr1] = useState("");
+  const [err2, setErr2] = useState("");
+  const [err3, setErr3] = useState("");
+  const [err4, setErr4] = useState("");
+  const { name, email, phone, password } = values;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    let noError = 0;
+    if (!name || name.length > 30) {
+      ++noError;
+      setErr1("Empty name OR longer than 30.");
+    } else {
+      setErr1("");
+    }
+    if (!email || !email.includes("@")) {
+      ++noError;
+      setErr2("Invalid Email.");
+    } else {
+      setErr2("");
+    }
+    if (phone.length !== 10) {
+      ++noError;
+      setErr3("Phone length is not 10.");
+    } else {
+      setErr3("");
+    }
+    if (password.length < 8) {
+      ++noError;
+      setErr4("Password length is not 8 atleast.");
+    } else {
+      setErr4("");
+    }
+    if (noError === 0) dispatch(signup(name, email, phone, password));
+  };
+  return (
+    <Fragment>
+      <Loading show={loading} />
+      <h1 className="NewUser">New User</h1>
+      <div className="mainDivInput">
+        <div className="divComb">
+          <div className="txtFieldDiv">
+            <TextField
+              error={Boolean(err1)}
+              helperText={err1}
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+              label="Your Name"
+            />
+          </div>
+          <div className="txtFieldDiv">
+            <TextField
+              error={Boolean(err2)}
+              helperText={err2}
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              label="Your Email"
+            />
+          </div>
+        </div>
+        <div className="divComb">
+          <div className="txtFieldDiv">
+            <TextField
+              error={Boolean(err3)}
+              helperText={err3}
+              type="text"
+              name="phone"
+              value={phone}
+              onChange={handleChange}
+              label="Your Phone"
+            />
+          </div>
+          <div className="txtFieldDiv">
+            <TextField
+              error={Boolean(err4)}
+              helperText={err4}
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              label="Password"
+            />
+          </div>
+        </div>
+        <div className="spaceAboveButton"></div>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<SendIcon />}
+          onClick={handleSubmit}
+        >
+          Signup
+        </Button>
+      </div>
+      <div className="spaceAboveCancel"></div>
+      <div className="Cancel">
+        <Link to="/login" className="Link">
+          <p>Have an account? Login</p>
+        </Link>
+      </div>
+    </Fragment>
+  );
+};
+
+export default Signup;
