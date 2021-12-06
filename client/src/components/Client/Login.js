@@ -13,22 +13,21 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, client, message, error } = useSelector(
-    (state) => state.client
-  );
+  const { loading, message, error } = useSelector((state) => state.client);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   useEffect(() => {
     if (error) {
       dispatch(SendNotif("error", error));
       dispatch(clearErrors());
     }
-    if (client) {
+    if (isAuthenticated) {
       if (message) {
         dispatch(SendNotif("success", message));
         dispatch(clearMessages());
       }
       navigate("/");
     }
-  }, [dispatch, error, message, client, navigate]);
+  }, [dispatch, error, message, isAuthenticated, navigate]);
   const [values, setValues] = useState({
     ID: "",
     password: "",

@@ -1,4 +1,5 @@
 import cookie from "react-cookies";
+import { BASE_URL } from "../utils/keys";
 import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
@@ -16,7 +17,7 @@ export const loadUser = () => async (dispatch) => {
     method: "GET",
     headers: { Authorization: token },
   };
-  await fetch(`/api/v1/user/me`, config)
+  await fetch(`${BASE_URL}/api/v1/user/me`, config)
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
@@ -44,7 +45,7 @@ export const logOut = () => async (dispatch) => {
     method: "GET",
     headers: { Authorization: token },
   };
-  await fetch(`/api/v1/user/logout`, config)
+  await fetch(`${BASE_URL}/api/v1/user/logout`, config)
     .then((response) => response.json())
     .then((data) => {
       cookie.remove("token", { path: "/" });

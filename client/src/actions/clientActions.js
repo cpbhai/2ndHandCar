@@ -11,51 +11,51 @@ import {
 } from "../constants/clientConstants";
 //const token = cookie.load("token");cookie.remove("token", { path: "/" });
 import { LOAD_USER_SUCCESS } from "../constants/userConstants";
+import { BASE_URL } from "../utils/keys";
 
-export const signup =
-  (name, email, phone, password) => async (dispatch) => {
-    dispatch({ type: CLIENT_REGISTER_REQUEST });
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        password
-      }),
-    };
+export const signup = (name, email, phone, password) => async (dispatch) => {
+  dispatch({ type: CLIENT_REGISTER_REQUEST });
+  const config = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      password,
+    }),
+  };
 
-    await fetch(`/api/v1/user/signup`, config)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch({
-            type: LOAD_USER_SUCCESS,
-          });
-          dispatch({
-            type: CLIENT_REGISTER_SUCCESS,
-            payload: {
-              client: data.user,
-              message: "Registered Successfully.",
-            },
-          });
-          cookie.save("token", data.token, { path: "/" });
-        } else
-          dispatch({
-            type: CLIENT_REGISTER_FAIL,
-            payload: data.message,
-          });
-      })
-      .catch((err) => {
+  await fetch(`${BASE_URL}/api/v1/user/signup`, config)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        dispatch({
+          type: LOAD_USER_SUCCESS,
+        });
+        dispatch({
+          type: CLIENT_REGISTER_SUCCESS,
+          payload: {
+            client: data.user,
+            message: "Registered Successfully.",
+          },
+        });
+        cookie.save("token", data.token, { path: "/" });
+      } else
         dispatch({
           type: CLIENT_REGISTER_FAIL,
-          payload: "Please Try Again.",
+          payload: data.message,
         });
+    })
+    .catch((err) => {
+      dispatch({
+        type: CLIENT_REGISTER_FAIL,
+        payload: "Please Try Again.",
       });
-  };
+    });
+};
 
 export const login = (ID, password) => async (dispatch) => {
   dispatch({ type: CLIENT_LOGIN_REQUEST });
@@ -68,7 +68,7 @@ export const login = (ID, password) => async (dispatch) => {
     body: JSON.stringify({ ID, password }),
   };
 
-  await fetch(`/api/v1/user/login`, config)
+  await fetch(`${BASE_URL}/api/v1/user/login`, config)
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {

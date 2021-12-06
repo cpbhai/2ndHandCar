@@ -1,18 +1,18 @@
 /* Ipad Portrait and Landscape */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  .height-1 {
-    height: 59px;
-  }
 }
 /* Desktop No retina */
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
-  .height-1 {
-    height: 62px;
+  .paginate {
+    display: flex;
+    justify-content: center;
   }
 }
 /* Phone Portrait and Landscape  70vh === 344 X 484*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
-  .height-1 {
-    height: 52px;
-  }
+}
+.paginate {
+  margin: 75px 0;
+  display: flex;
+  justify-content: center;
 }

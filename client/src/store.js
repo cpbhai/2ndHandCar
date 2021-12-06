@@ -4,10 +4,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { clientReducer } from "./reducers/clientReducers";
 import { designReducer } from "./reducers/designReducers";
 import { authReducer } from "./reducers/userReducers";
+import { postReducer } from "./reducers/postReducers";
 const reducer = combineReducers({
   client: clientReducer,
   design: designReducer,
   auth: authReducer,
+  post: postReducer,
 });
 let initialState = {};
 const middleware = [thunk];

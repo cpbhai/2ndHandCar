@@ -11,3 +11,6 @@
 .red {
   color: red;
 }
+input[type="file"] {
+  display: none;
+}

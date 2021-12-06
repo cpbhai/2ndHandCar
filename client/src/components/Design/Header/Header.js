@@ -1,3 +1,4 @@
+import "./Header.css";
 import { Fragment, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -16,6 +17,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 //import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { logOut } from "../../../actions/userActions";
+import { SHOW_MAIN_DRAWER } from "../../../constants/designConstants";
+import { getProdData } from "../../../actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -68,6 +71,13 @@ export default function PrimarySearchAppBar() {
     dispatch(logOut());
     handleMenuClose();
     dispatch(SendNotif("info", "Logged Out."));
+  };
+  const handleSearch = (value, sign) => {
+    if (!sign) return;
+    window.localStorage.clear();
+    window.localStorage.setItem("keywordHead", value);
+    window.localStorage.setItem("page", 1);
+    dispatch(getProdData(`?keyword=${value}`));
   };
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -195,6 +205,7 @@ export default function PrimarySearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={styles}
+            onClick={() => dispatch({ type: SHOW_MAIN_DRAWER })}
           >
             <MenuIcon />
           </IconButton>
@@ -213,6 +224,9 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onKeyPress={(e) =>
+                handleSearch(e.target.value, e.key === "Enter")
+              }
               placeholder="Name of car or brand..."
               inputProps={{ "aria-label": "search" }}
             />
@@ -274,6 +288,7 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <div className="height-1"></div>
     </Fragment>
   );
 }
