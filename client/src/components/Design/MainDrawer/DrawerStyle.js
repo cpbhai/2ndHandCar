@@ -1,9 +1,9 @@
 const DrawerStyle = (theme) => {
   return {
     listItem: {
-      backgroundColor: "#000",
+      backgroundColor: "rgb(247,7,147)",
       "&:hover": {
-        backgroundColor: "rgb(247,7,147)",
+        backgroundColor: "#000",
       },
       "&:active": {
         backgroundColor: "gold",

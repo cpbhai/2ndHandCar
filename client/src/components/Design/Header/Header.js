@@ -227,7 +227,7 @@ export default function PrimarySearchAppBar() {
               onKeyPress={(e) =>
                 handleSearch(e.target.value, e.key === "Enter")
               }
-              placeholder="Name of car or brand..."
+              placeholder="Type &amp; hit enter..."
               inputProps={{ "aria-label": "search" }}
             />
           </Search>

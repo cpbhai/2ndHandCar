@@ -21,6 +21,7 @@ import {
   clearMessages,
 } from "../../../actions/postActions";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../../../utils/MetaData";
 const Post = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const Post = () => {
   const classes = useStyles();
   return (
     <Fragment>
+      <MetaData title="New Post of your Car" />
       <Loading show={loading} />
       <h1 className="addPHeader">Add Car Details</h1>
       <div className="firstDiv">
@@ -193,8 +195,8 @@ const Post = () => {
                 ))}
               </div>
             ) : (
-              <span style={{ color: "darkgray" }}>
-                Add Images of Car(max. 3)
+              <span style={{ color: "darkgray", cursor: "pointer" }}>
+                Add Images of Car
               </span>
             )}
           </label>

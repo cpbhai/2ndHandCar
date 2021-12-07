@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import preserveURL from "../../utils/preserveURL";
 import "./Home.css";
+import MetaData from "../../utils/MetaData";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,8 @@ const Home = () => {
   };
   return (
     <Fragment>
+      <MetaData title="Cars on exclusive prices | 2ndHandCars" />
+
       <Loading show={loading} />
       <Button
         onClick={handleFilterDrawer}
@@ -71,11 +74,9 @@ const Home = () => {
         }}
         gap={2}
       >
-        {postData && postData.length !== 0 ? (
-          postData.map((post, idx) => <ProductCard itm={post} key={idx} />)
-        ) : (
-          <h2>No matching cars found:(</h2>
-        )}
+        {postData && postData.length !== 0
+          ? postData.map((post, idx) => <ProductCard itm={post} key={idx} />)
+          : !loading && <h2>No matching cars found:(</h2>}
       </Grid>
       {totalPages ? (
         <div className="paginate">

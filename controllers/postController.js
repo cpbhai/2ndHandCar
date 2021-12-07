@@ -11,14 +11,15 @@ exports.get = async (req, res) => {
   }
 };
 exports.getAll = async (req, res) => {
-  let { keyword, category, low, high, page } = req.query;
+  let { keyword, category, low, high, page, sortBy } = req.query;
   if (page) page = Number(page);
   else page = 1;
+  if (!sortBy) sortBy = "";
   let posts = [],
     totalPages = 1;
   try {
-    if (category) posts = await Post.find({ category });
-    else posts = await Post.find();
+    if (category) posts = await Post.find({ category }).sort(sortBy);
+    else posts = await Post.find().sort(sortBy);
     if (keyword) {
       const pattern = new RegExp(keyword, "i");
       posts = posts.filter(({ title }) => title.match(pattern));
@@ -26,8 +27,8 @@ exports.getAll = async (req, res) => {
     if (low) posts = posts.filter(({ discost }) => discost >= low);
     if (high) posts = posts.filter(({ discost }) => discost <= high);
     /*Pagination Begin*/
-    totalPages = Math.ceil(parseFloat(posts.length) / 2);
-    posts = Pagination(posts, 2, page);
+    totalPages = Math.ceil(parseFloat(posts.length) / 8);
+    posts = Pagination(posts, 8, page);
     /*Pagination End*/
     res.status(200).json({ success: true, posts, totalPages, page });
   } catch (err) {

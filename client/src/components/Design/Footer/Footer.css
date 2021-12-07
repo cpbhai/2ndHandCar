@@ -1,0 +1,13 @@
+.footer {
+  height: 200px;
+  font-family: "Oswald", sans-serif;
+  color: #fff;
+  text-align: center;
+  background-color: rgb(247, 0, 82);
+}
+.text-center {
+  padding: 40px 0;
+}
+.createdBy {
+  padding: 10px 0;
+}

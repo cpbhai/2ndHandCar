@@ -9,12 +9,15 @@ import { useNavigate } from "react-router-dom";
 import { login, clearErrors, clearMessages } from "../../actions/clientActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import MetaData from "../../utils/MetaData";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, message, error } = useSelector((state) => state.client);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const params = new URLSearchParams(window.location.search);
+  const guide = params.get("guide");
   useEffect(() => {
     if (error) {
       dispatch(SendNotif("error", error));
@@ -25,9 +28,10 @@ const Login = () => {
         dispatch(SendNotif("success", message));
         dispatch(clearMessages());
       }
-      navigate("/");
+      if (guide) navigate(guide);
+      else navigate("/");
     }
-  }, [dispatch, error, message, isAuthenticated, navigate]);
+  }, [dispatch, error, message, isAuthenticated, navigate, guide]);
   const [values, setValues] = useState({
     ID: "",
     password: "",
@@ -57,6 +61,8 @@ const Login = () => {
   };
   return (
     <Fragment>
+      <MetaData title="Login | 2ndHandCar" />
+
       <Loading show={loading} />
       <h1 className="NewUser">Login</h1>
       <div className="mainDivInput">
@@ -92,7 +98,10 @@ const Login = () => {
         </Button>
         <div className="spaceAboveCancel"></div>
         <div className="Cancel">
-          <Link to="/signup" className="Link">
+          <Link
+            to={guide ? `/signup?guide=${guide}` : "/signup"}
+            className="Link"
+          >
             <p>New User? Signup</p>
           </Link>
         </div>
