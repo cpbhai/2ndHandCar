@@ -16,3 +16,6 @@
   display: flex;
   justify-content: center;
 }
+.homeHeight{
+  height: 25px;
+}

@@ -5,6 +5,15 @@
     width: 150px;
     object-fit: cover;
   }
+  .discost {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 13px;
+  }
+  .maxcost {
+    font-family: "Oswald", sans-serif;
+    margin: 0 0 0 5px;
+    font-size: 13px;
+  }
 }
 /* Desktop No retina */
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
@@ -12,6 +21,15 @@
     height: 250px;
     width: 280px;
     object-fit: cover;
+  }
+  .discost {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 18px;
+  }
+  .maxcost {
+    font-family: "Oswald", sans-serif;
+    margin: 0 0 0 10px;
+    font-size: 18px;
   }
 }
 /* Phone Portrait and Landscape  70vh === 344 X 484*/
@@ -21,4 +39,14 @@
     width: 140px;
     object-fit: cover;
   }
+  .discost {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 12.5px;
+  }
+  .maxcost {
+    font-family: "Oswald", sans-serif;
+    margin: 0 0 0 3px;
+    font-size: 12.5px;
+  }
 }
+

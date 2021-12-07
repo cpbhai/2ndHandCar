@@ -51,7 +51,7 @@ export const getProdData = (query) => async (dispatch) => {
     });
   }
 };
-export const newPost = (formData) => async (dispatch) => {
+export const newPost = (body) => async (dispatch) => {
   dispatch({ type: NEW_POST_REQUEST });
   const config = {
     headers: {
@@ -61,21 +61,15 @@ export const newPost = (formData) => async (dispatch) => {
   };
   const link = `${BASE_URL}/api/v1/post/add`;
   try {
-    const { data } = await axios.post(link, formData, config);
-    if (data.success) {
-      dispatch({
-        type: NEW_POST_SUCCESS,
-        payload: data.message,
-      });
-    } else
-      dispatch({
-        type: NEW_POST_FAIL,
-        payload: data.message,
-      });
+    const { data } = await axios.post(link, body, config);
+    dispatch({
+      type: NEW_POST_SUCCESS,
+      payload: data.message,
+    });
   } catch (err) {
     dispatch({
       type: NEW_POST_FAIL,
-      payload: "Please Try Again.",
+      payload: err.response.data.message,
     });
   }
 };

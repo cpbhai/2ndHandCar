@@ -11,6 +11,9 @@ import Loading from "../../components/Design/Loading/Loading";
 import ProductCard from "../Product/ProductCard/ProductCard";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import preserveURL from "../../utils/preserveURL";
 import "./Home.css";
 
@@ -44,23 +47,37 @@ const Home = () => {
   return (
     <Fragment>
       <Loading show={loading} />
-
-      <button
-        style={{ marginBottom: "20px", zIndex: 1, position: "fixed" }}
+      <Button
         onClick={handleFilterDrawer}
+        sx={{
+          position: "fixed",
+          zIndex: "1",
+        }}
+        color={filterDrawer ? "error" : "info"}
+        variant="contained"
+        startIcon={filterDrawer ? <CloseIcon /> : <FilterAltIcon />}
       >
-        {!filterDrawer ? "Show filter Drawer" : "Hide filter Drawer"}
-      </button>
+        {filterDrawer ? "Close" : "Filter"}
+      </Button>
+
+      <div className="homeHeight"></div>
       <Grid
         container
         direction="row"
-        sx={{ display: "flex", justifyContent: "space-evenly", margin:"25px 0" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          margin: "25px 0",
+        }}
         gap={2}
       >
-        {postData &&
-          postData.map((post, idx) => <ProductCard itm={post} key={idx} />)}
+        {postData && postData.length !== 0 ? (
+          postData.map((post, idx) => <ProductCard itm={post} key={idx} />)
+        ) : (
+          <h2>No matching cars found:(</h2>
+        )}
       </Grid>
-      {totalPages && (
+      {totalPages ? (
         <div className="paginate">
           <Pagination
             count={totalPages}
@@ -72,6 +89,8 @@ const Home = () => {
             showLastButton
           />
         </div>
+      ) : (
+        <></>
       )}
     </Fragment>
   );

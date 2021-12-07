@@ -1,8 +1,7 @@
 /* Ipad Portrait and Landscape */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
   .mainDiv {
-    height: 50vh;
-    background-color: rgba(135, 207, 235, 0.801);
+    background-color: rgba(0, 255, 242, 0.39);
     position: fixed;
     width: 96%;
     z-index: 1;
@@ -12,27 +11,43 @@
     padding-right: 38px;
   }
   .sliderDiv {
-    margin: 50px auto;
+    margin: 50px 10px 0px 10px;
     width: 60vh;
     display: flex;
     justify-content: center;
     text-align: center;
+    height: 40px;
   }
   .costShowcase {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 15px 0 0 0;
+    color: #fff;
+    padding: 5px;
+    background-color: #000;
+    height: 20px;
+    height: 20px;
   }
   .catDiv {
     display: flex;
+    margin: 20px -22px 50px 0;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    height: fit-content;
+  }
+  .show {
+    top: 7%;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease;
   }
 }
 /* Desktop No retina */
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
   .mainDiv {
-    height: 50vh;
-    background-color: rgba(135, 207, 235, 0.801);
+    height: 100%;
+    background-color: rgba(0, 255, 242, 0.39);
     position: fixed;
     width: 96%;
     z-index: 1;
@@ -44,17 +59,31 @@
   }
   .costShowcase {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
+    color: #fff;
+    width: fit-content;
+    padding: 5px;
+    background-color: #000;
+    height: 20px;
   }
   .catDiv {
     display: flex;
     justify-content: space-evenly;
   }
+  .show {
+    top: 10%;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease;
+  }
 }
 /* Phone Portrait and Landscape  70vh === 344 X 484*/
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
   .mainDiv {
-    background-color: rgba(135, 207, 235, 0.801);
+    height: 100%;
+    background-color: rgba(0, 255, 242, 0.39);
     position: fixed;
     width: 100%;
     z-index: 1;
@@ -71,15 +100,36 @@
   }
   .costShowcase {
     display: flex;
+
     justify-content: space-between;
     text-align: center;
+    color: #fff;
+    padding: 5px;
+    background-color: #000;
+    height: 20px;
     margin-bottom: 20px;
   }
   .catDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin-bottom: 10vh;
+    margin-bottom: 30vh;
     width: 280px;
   }
+  .show {
+    top: 10%;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease;
+  }
+}
+.hide {
+  top: -100%;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease;
 }

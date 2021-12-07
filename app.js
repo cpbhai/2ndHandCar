@@ -6,8 +6,6 @@ require("dotenv").config({ path: "config/.env" });
 const cloudinary = require("cloudinary");
 const path = require("path");
 const cors = require("cors");
-
-app.use(cors());
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -21,6 +19,7 @@ app.use(
 );
 app.use(fileUpload());
 app.use(cookieParser());
+app.use(cors());
 
 //Router Imports
 app.use("/api/t", function (req, res, next) {
@@ -30,7 +29,7 @@ app.use("/api/v1/user", require("./routes/userRoute.js"));
 app.use("/api/v1/category", require("./routes/categRoute.js"));
 app.use("/api/v1/post", require("./routes/postRoute.js"));
 
-//Frontend hai
+/*Frontend hai*/
 app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
@@ -40,5 +39,5 @@ require("./utils/connectDB");
 
 const FINAL_PORT = process.env.PORT || 5000;
 app.listen(FINAL_PORT, () => {
-  console.log(`Server running ${FINAL_PORT}`);
+  //console.log(`Server running ${FINAL_PORT}`);
 });

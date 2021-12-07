@@ -18,7 +18,10 @@ const ProductCard = ({ itm }) => {
             {itm.title}
           </Typography>
           <Typography variant="p" display="block" gutterBottom>
-            {itm.discost}
+            <span className="green discost">₹ {itm.discost}</span>
+            <span className="tomato maxcost">
+              <del>₹ {itm.maxcost}</del>
+            </span>
           </Typography>
         </CardContent>
       </CardActionArea>
